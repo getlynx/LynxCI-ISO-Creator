@@ -11,14 +11,15 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 # https://www.raspberrypi.com/software/operating-systems/
 # https://downloads.raspberrypi.org/raspios_lite_armhf/
 echo "Downloading the supplied OS package. This is the new modified target OS."
-wget -q $target
+wget -q "$target"
 
 # Unpack the downloaded file
 echo "Target OS downloaded, unpacking the compressed file."
 unxz *.xz
 
 # Create the dir for the image we are gonna mount.
-mkdir -p /mnt/lynx
+mkdir -p /mnt/lynx1
+mkdir -p /mnt/lynx2
 
 # https://www.linuxquestions.org/questions/linux-general-1/how-to-mount-img-file-882386/
 # Get the correct offset value we need.
@@ -26,24 +27,27 @@ mkdir -p /mnt/lynx
 
 # Mount single partition from image of entire disk (device) - Ask Ubuntu
 echo "Mounting the target virtual OS."
-mount -v -o offset=272629760 -t ext4 *.img /mnt/lynx > /dev/null 2>&1
+mount -v -o offset=4194304 -t vfat *.img /mnt/lynx1 > /dev/null 2>&1
+
+# https://www.raspberrypi.com/news/raspberry-pi-bullseye-update-april-2022/
+# read the part about Headless setup
+echo "pi:\$6\$eH/dFQNHFvfWIQh3\$jgDE54KrKChVSMZr5StLj8vcpzaH/YcdKiethLDtIFHoXDcPAZMJ2Ji1qw2YMoeyE1WCvAkOJ.ExtiCTKIAMR1" > /mnt/lynx1/userconf.txt
+
+umount /mnt/lynx1
+
+mount -v -o offset=272629760 -t ext4 *.img /mnt/lynx2 > /dev/null 2>&1
 
 echo "Setting up the rc.local file on the target OS."
 echo "#!/bin/sh -e
 #
-
 # Print the IP address
 _IP=\$(hostname -I) || true
 if [ \"\$_IP\" ]; then
   printf \"My IP address is %s\n\" \"\$_IP\"
 fi
-
 printf \"\n\n\n\n\n\n\n\nLynxCI initialization will start in 60 seconds.\n\n\n\n\n\n\"
-
 sleep 60
-
 # Ping Google NS server to test public network access
-
 if /bin/ping -c 1 8.8.8.8
 then
         sleep 30
@@ -53,15 +57,10 @@ else
         sleep 60
         reboot
 fi
-
 exit 0
-" > /mnt/lynx/etc/rc.local
+" > /mnt/lynx2/etc/rc.local
 
-# https://www.raspberrypi.com/news/raspberry-pi-bullseye-update-april-2022/
-# read the part about Headless setup
-echo "pi:\$6\$eH/dFQNHFvfWIQh3\$jgDE54KrKChVSMZr5StLj8vcpzaH/YcdKiethLDtIFHoXDcPAZMJ2Ji1qw2YMoeyE1WCvAkOJ.ExtiCTKIAMR1" > /boot/userconf.txt
-
-umount /mnt/lynx
+umount /mnt/lynx2
 
 currentDate=$(date +%F)
 mv *.img "$currentDate"-LynxCI.img
