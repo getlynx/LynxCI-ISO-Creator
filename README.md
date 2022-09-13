@@ -12,4 +12,4 @@ You can read more about the [LynxCI ISO here](https://docs.getlynx.io/lynx-core/
 
 or
 
-```wget -qO - https://github.com/getlynx/LynxCI-ISO-Creator/blob/main/build.sh | bash```
+```wget -O - https://raw.githubusercontent.com/getlynx/LynxCI-ISO-Creator/main/build.sh | bash```
