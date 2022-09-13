@@ -8,7 +8,7 @@ You can read more about the [LynxCI ISO here](https://docs.getlynx.io/lynx-core/
 
 ### Usage
 
-#### The following commands run best as teh root user. Don't use sudo.
+#### The following commands run best as the root user. Don't use sudo.
 
 ```wget -qO - https://raw.githubusercontent.com/getlynx/LynxCI-ISO-Creator/main/build.sh | bash```
 
