@@ -9,3 +9,7 @@ You can read more about the [LynxCI ISO here](https://docs.getlynx.io/lynx-core/
 ### Usage
 
 ```./build.sh "https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2022-09-07/2022-09-06-raspios-bullseye-armhf-lite.img.xz"```
+
+or
+
+```wget -qO https://github.com/getlynx/LynxCI-ISO-Creator/blob/main/build.sh | bash -s```
