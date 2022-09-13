@@ -57,6 +57,8 @@ fi
 exit 0
 " > /mnt/lynx/etc/rc.local
 
+# https://www.raspberrypi.com/news/raspberry-pi-bullseye-update-april-2022/
+# read the part about Headless setup
 echo "pi:\$6\$eH/dFQNHFvfWIQh3\$jgDE54KrKChVSMZr5StLj8vcpzaH/YcdKiethLDtIFHoXDcPAZMJ2Ji1qw2YMoeyE1WCvAkOJ.ExtiCTKIAMR1" > /boot/userconf.txt
 
 umount /mnt/lynx
