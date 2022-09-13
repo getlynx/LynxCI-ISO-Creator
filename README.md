@@ -6,7 +6,7 @@ The image file that is used by LynxCI for the Raspberry Pi is a modified version
 
 You can read more about the [LynxCI ISO here](https://docs.getlynx.io/lynx-core/lynxci/iso-for-raspberry-pi).
 
-### Usage
+### Usage (as root user)
 
 ```./build.sh "https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2022-09-07/2022-09-06-raspios-bullseye-armhf-lite.img.xz"```
 
